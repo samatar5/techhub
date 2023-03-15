@@ -2,6 +2,7 @@ import React from "react";
 
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import QuestionPage from "./QuestionPage";
 import HomePage from "./views/HomePage";
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/questions/:id" element={<div>hej från en fråga</div>} />
+        <Route path="/questions/:id" element={<QuestionPage />} />
       </Routes>
     </div>
   );
