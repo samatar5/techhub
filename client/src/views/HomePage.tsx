@@ -22,7 +22,7 @@ export default function HomePage() {
     );
   if (isError) return <div>ooops, somthing went wrong</div>;
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="">
       {questions.map((question) => (
         <QuestionCard question={question} />
       ))}

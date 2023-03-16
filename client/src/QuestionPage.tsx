@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { Question } from "./components/Question";
@@ -18,6 +18,21 @@ export default function QuestionPage() {
         data.json()
       ),
   });
+  const [answer, setAnswer] = useState("");
+
+  async function sendComment() {
+    const response = await fetch(
+      "http://localhost:3000/questions/" + id + "/comment",
+      {
+        method: "POST",
+        body: JSON.stringify({ text: answer }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setAnswer("");
+  }
 
   if (isLoading)
     return (
@@ -30,17 +45,37 @@ export default function QuestionPage() {
   console.log(question);
 
   return (
-    <div className="max-w-4xl mx-auto py-10">
-      <div className="border-b pb-4 mb-4">
-        <h2 className="text-2xl mb-2 text-gray-700">{question.title}</h2>
-        <p className="text-sm text-gray-600">
-          Asked:{" "}
-          <span className="text-gray-800">
-            {moment(question.createdAt).startOf("day").fromNow()}
-          </span>
-        </p>
+    <div>
+      <div className="">
+        <div className="border-b pb-4 mb-4">
+          <h2 className="text-2xl mb-2 text-gray-700">{question.title}</h2>
+          <p className="text-sm text-gray-600">
+            Asked:{" "}
+            <span className="text-gray-800 ">
+              {moment(question.createdAt).startOf("minute").fromNow()}
+            </span>
+          </p>
+        </div>
+        <p className="mb-10">{question.description}</p>
+        <div>
+          <label className="text-lg" htmlFor="answer-textarea">
+            Leave an answer
+          </label>
+          <textarea
+            id="description"
+            className="bg-gray-100 border p-1 w-full min-h-[200px] "
+            placeholder="this is a discription"
+            onChange={(e) => setAnswer(e.target.value)}
+            value={answer}
+          ></textarea>
+          <button
+            onClick={() => sendComment()}
+            className="bg-[#0896ff] hover:opacity-90 ml-auto text-black rounded-md p-1.5 text-[13px"
+          >
+            Ask question
+          </button>
+        </div>
       </div>
-      <p className="">{question.description}</p>
     </div>
   );
 }

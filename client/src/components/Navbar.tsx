@@ -28,6 +28,12 @@ export default function Navbar({}: Props) {
             Tags
           </li>
         </ul>
+        <Link
+          to="/Ask-question"
+          className="bg-[#0896ff] hover:opacity-90 ml-auto text-black rounded-md p-1.5 text-[13px]"
+        >
+          Ask question
+        </Link>
       </div>
     </nav>
   );
